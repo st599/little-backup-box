@@ -82,38 +82,41 @@ done
 if [ ! -z "${CARD_READER[0]}" ]; then
   mount /dev"/${CARD_READER[0]}" "$CARD_MOUNT_POINT"
 
-  # Set the ACT LED to blink at 500ms to indicate that the card has been mounted
-  sudo sh -c "echo 500 > /sys/class/leds/led0/delay_on"
+# Set the ACT LED to blink at 500ms to indicate that the card has been mounted
+sudo sh -c "echo 500 > /sys/class/leds/led0/delay_on"
 
-  # Cancel shutdown
-  sudo shutdown -c
+# Cancel shutdown
+sudo shutdown -c
   
-  # If display support is enabled, notify that the card has been mounted
-  if [ $DISP = true ]; then
-      oled r
-      oled +a "Card reader OK"
-      oled +b "Working..."
-      sudo oled s 
-  fi
+# If display support is enabled, notify that the card has been mounted
+if [ $DISP = true ]; then
+    oled r
+    oled +a "Card reader OK"
+    oled +b "Working..."
+    sudo oled s 
+fi
 
 if [ $VERBOSE = true ]; then
 	echo "Card reader OK"
     echo "Working..."
 fi
 
-  # Create  a .id random identifier file if doesn't exist
-  cd "$CARD_MOUNT_POINT"
-  if [ ! -f *.id ]; then
-    random=$(echo $RANDOM)
-    touch $(date -d "today" +"%Y%m%d%H%M")-$random.id
-  fi
-  ID_FILE=$(ls *.id)
-  ID="${ID_FILE%.*}"
-  cd
+# Create  a .id random identifier file if doesn't exist
+cd "$CARD_MOUNT_POINT"
+if [ ! -f *.id ]; then
+  random=$(echo $RANDOM)
+  touch $(date -d "today" +"%Y%m%d%H%M")-$random.id
+fi
+ID_FILE=$(ls *.id)
+ID="${ID_FILE%.*}"
+cd
 
-  # Set the backup path
-  BACKUP_PATH="$STORAGE_MOUNT_POINT"/"$ID"
-  # Perform backup using rsync
+# Set the backup path
+BACKUP_PATH="$STORAGE_MOUNT_POINT"/"$ID"
+# Perform backup using rsync
+if [ $DISP = true ]; then
+  rsync -avh --info=progress2 --exclude "*.id" "$CARD_MOUNT_POINT"/ "$BACKUP_PATH" | /home/"$USER"/little-backup-box/scripts/oled-rsync-progress.sh exclude.txt
+else
   rsync -avh --info=progress2 --exclude "*.id" "$CARD_MOUNT_POINT"/ "$BACKUP_PATH"
 fi
 
