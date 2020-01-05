@@ -6,7 +6,7 @@
 # author		 :		Simon Thompson (st599)
 # copyright		 :		(c) Simon Thompson 2019
 # licence		 : 		GNU General Public License version 3
-# description	 	 :		Shell script to create a video contact sheet
+# description	 :		Shell script to create a video contact sheet
 # requires		 :		imagemagick
 #
 ################################################################################################
@@ -16,7 +16,7 @@
 img_dir=$1
 VERSION="1.0"
 file_type_list="*.jpg *.JPG *.jpeg *.png *.PNG *.gif *.GIF *.bmp *.BMP *.tif *.tiff *.TIF *.TIFF"
-BACKUP_PATH=/home/pi/
+BACKUP_PATH=$2
 
 ## INITIALISE
 echo "Creating Image Contact Sheet"

@@ -6,7 +6,7 @@
 # author		 :		Simon Thompson (st599)
 # copyright		 :		(c) Simon Thompson 2019
 # licence		 : 		GNU General Public License version 3
-# description	 	 :		Shell script to create a video contact sheet
+# description	 :		Shell script to create a video contact sheet
 # requires		 :		FFmpeg, grep, vcs script (https://p.outlyer.net/vcs/files/vcs-1.13.4.gz)
 #
 ################################################################################################
@@ -15,9 +15,9 @@
 vid_dir=$1
 VERSION="1.0"
 file_type_list="*.mp4 *.MP4 *.mpg *.MPG *.avi *.AVI *.wmv *.WMV *.mpeg *.MPEG *.mxf *.MXF *.mov *.MOV"
-BACKUP_PATH=/home/pi/
+BACKUP_PATH=$2
 numframes=20
-vidCS=/home/pi/scripts/vcs-1.13.4.sh
+vidCS=./vcs-1.13.4.sh
 
 ## INITIALISE
 echo "Creating Video Contact Sheet"
