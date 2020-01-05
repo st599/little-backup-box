@@ -21,6 +21,10 @@ CONFIG_DIR=$(dirname "$0")
 CONFIG="${CONFIG_DIR}/config.cfg"
 source "$CONFIG"
 
+if [ $VERBOSE = true ]; then
+	echo "LBB CARD BACKUP"
+fi
+
 # Set the ACT LED to heartbeat
 sudo sh -c "echo heartbeat > /sys/class/leds/led0/trigger"
 
@@ -31,6 +35,11 @@ if [ $DISP = true ]; then
     oled +a "Shutdown active"
     oled +b "Insert storage"
     sudo oled s 
+fi
+
+if [ $VERBOSE = true ]; then
+	echo "Shutdown active"
+    echo "Insert storage"
 fi
 
 # Wait for a USB storage device (e.g., a USB flash drive)
@@ -53,6 +62,11 @@ if [ $DISP = true ]; then
     oled +a "Storage OK"
     oled +b "Card reader..."
     sudo oled s 
+fi
+
+if [ $VERBOSE = true ]; then
+	echo "Storage OK"
+    echo "Card reader..."
 fi
 
 # Wait for a card reader or a camera
@@ -82,6 +96,11 @@ if [ ! -z "${CARD_READER[0]}" ]; then
       sudo oled s 
   fi
 
+if [ $VERBOSE = true ]; then
+	echo "Card reader OK"
+    echo "Working..."
+fi
+
   # Create  a .id random identifier file if doesn't exist
   cd "$CARD_MOUNT_POINT"
   if [ ! -f *.id ]; then
@@ -102,12 +121,50 @@ fi
 if [ $DISP = true ]; then
     oled r
     oled +a "Backup complete"
-    oled +b "Shutdown"
     sudo oled s 
 fi
+
+if [ $VERBOSE = true ]; then
+	echo "Backup complete"
+fi
+
+
+# If image contact sheet is enabled, run
+if [ $IMG_CS = true ]; then
+	images-contact-sheet.sh $BACKUP_PATH
+	if [ $DISP = true ]; then
+    	oled r
+    	oled +a "Image CS complete"
+    	sudo oled s 
+	fi
+	if [ $VERBOSE = true ]; then
+		echo "Image CS complete"
+    fi
+fi
+
+
+# If video contact sheet is enabled, run
+if [ $VID_CS = true ]; then
+	video-contact-sheet.sh $BACKUP_PATH
+	if [ $DISP = true ]; then
+    	oled r
+    	oled +a "Video CS complete"
+    	sudo oled s 
+	fi
+	if [ $VERBOSE = true ]; then
+		echo "Video CS complete"
+    fi
+fi
+
 # Shutdown
 sync
 if [ $DISP = true ]; then
+	oled r
+	oled +a "process complete"
+	sleep 2
     oled r
+fi
+if [ $VERBOSE = true ]; then
+	echo "process complete"
 fi
 shutdown -h now
