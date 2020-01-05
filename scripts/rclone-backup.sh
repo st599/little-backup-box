@@ -21,10 +21,5 @@ CONFIG_DIR=$(dirname "$0")
 CONFIG="${CONFIG_DIR}/config.cfg"
 source "$CONFIG"
 
-ping -c1 google.com &>/dev/null
-
-if [ $? -eq 0 ]; then
-    IP=$(hostname -I | cut -d' ' -f1)
-    echo "$IP"
-    curl -d ip="$IP" -G "$IP_URL"
-fi 
+rclone sync /media/storage "$RCLONE_REMOTE:$RCLONE_BUCKET"
+shutdown -h now

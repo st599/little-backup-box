@@ -41,7 +41,15 @@ sudo sh -c "echo 1000 > /sys/class/leds/led0/delay_on"
 sudo minidlnad -R
 sudo service minidlna restart
 
-# Start Syncthing
-if [ "$SYNCTHING" = true ]; then
-    sudo systemctl start syncthing@pi.service
+# If display support is enabled, display storage space info
+if [ $DISP = true ]; then
+    storsize=$(df /dev/"$STORAGE_DEV"  -h --output=size | sed '1d')
+    storused=$(df /dev/"$STORAGE_DEV"  -h --output=pcent | sed '1d')
+    storfree=$(df /dev/"$STORAGE_DEV"  -h --output=avail | sed '1d')
+    oled r
+    oled +a "Avail. storage"
+    oled +b "Total: $storsize"
+    oled +c " Used: $storused"
+    oled +d " Free: $storfree"
+    sudo oled s
 fi

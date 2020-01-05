@@ -17,14 +17,27 @@
 # Run the install-little-backup-box.sh script first
 # to install the required packages and configure the system.
 
-CONFIG_DIR=$(dirname "$0")
-CONFIG="${CONFIG_DIR}/config.cfg"
-source "$CONFIG"
+oled r
+secs=11
+while [ $secs -gt 1 ]; do
+   sleep 1
+   : $((secs--))
+   oled +a "Ready in $secs sec."
+   oled +b "******************"
+   oled s
+done
 
-ping -c1 google.com &>/dev/null
+ip=$(hostname -I | cut -d' ' -f1)
+if [ -z "$ip" ]; then
+    a="Hello! I'm not"
+    b="on the network"
+else
+    a="Hello! I'm here:"
+    b=$ip
+fi
+echo "$ip"
+oled r
+oled +a "$a"
+oled +b "$b"
+sudo oled s
 
-if [ $? -eq 0 ]; then
-    IP=$(hostname -I | cut -d' ' -f1)
-    echo "$IP"
-    curl -d ip="$IP" -G "$IP_URL"
-fi 
