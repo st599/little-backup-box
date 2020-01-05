@@ -2,7 +2,7 @@
 
 A collection of scripts that transform a Raspberry Pi (or any single-board computer running a Debian-based Linux distribution) into an inexpensive, fully-automatic, pocketable photo backup device.
 
-<img src="https://i.imgur.com/oHljRK8.jpg" alt="" width="800"/>
+<img src="https://i.imgur.com/d13p40y.jpg" alt="" width="800"/>
 
 **IMPORTANT**
 Little Backup Box is designed to work with USB sticks as backup media. Theoretically, it's possible to make Little Backup Box work with an external hard disk, but this setup is not officially supported.
@@ -14,6 +14,7 @@ Little Backup Box is designed to work with USB sticks as backup media. Theoretic
 - Use multiple cards. Little Backup Box assigns a unique ID to each card and create a separate folder for each card on the backup storage device.
 - Perform card backup fully automatically with no user interaction.
 - Start specific backup operations manually using Little Backup Box's web UI.
+- Browse and view the backed up files using the integrated web-based file viewer.
 - Stream the backed up photos to any DLNA-compatible client.
 - Access the backed up content from other machines on the network.
 - Synchronize the backed up content with multiple machines.
@@ -48,7 +49,9 @@ The exact steps depend on the backup mode.
 
 <img src="img/rc.png" alt="Remote control interface" />
 
-The **System info** link gives you access to basic system information, such as a list of storage devices and memory usage.
+- Click the **Speedometer** icon to access basic system information, such as a list of storage devices and memory usage.
+- To view JPEG files on the backup storage device, click the  **Image** icon.
+- To edit the configuration file, click the **Hamburger** icon.
 
 ### Card backup mode
 
@@ -78,6 +81,12 @@ To discuss Little Backup Box-related topics and get the latest updates, visit th
 
 Please report bugs and issues in the [Issues](https://github.com/dmpop/little-backup-box/issues) section.
 
+## Uninstall Little Backup Box
+
+To uninstall Little Backup Box, run the following command:
+
+    curl -sSL https://is.gd/unlittlebackupbox | bash
+
 ## Contribute
 
 If you've found a bug or have a suggestion for improvement, open an issue in the [Issues](https://github.com/dmpop/little-backup-box/issues) section.
@@ -94,14 +103,21 @@ To add a new feature or fix issues yourself, follow the following steps.
 
 [Dmitri Popov](https://www.tokyomade.photography/)
 
+### I like coffee
+
+<a href="https://paypal.me/dmpop" target="_blank">Buy me a coffee</a>, and I'll work even harder on Little Backup Box.
+
+<a href="https://paypal.me/dmpop" target="_blank"><img
+src="https://i.imgur.com/cERczks.png" alt="Buy Me A Coffee" width="128"></a>
+
+## Little Backup Book
+
+The [Little Backup Book](https://gumroad.com/l/little-backup-book) book provides step-by-step instructions on building, configuring, using, and troubleshooting a Raspberry Pi-based photo backup device running Little Backup Box. Get your copy on [Google Play Store](https://play.google.com/store/books/details?id=VvrHDwAAQBAJ) or [Gumroad](https://gumroad.com/l/little-backup-book).
+
+<img src="https://i.imgur.com/O31FnrF.jpg" width="200"/>
+
+By buying the book, you are supporting the Linux Backup Box project.
+
 ## License
 
 The [GNU General Public License version 3](http://www.gnu.org/licenses/gpl-3.0.en.html)
-
-## Linux Photography
-
-The [Linux Photography](https://gumroad.com/l/linux-photography) book provides step-by-step instructions on building a Raspberry Pi-based photo backup device running Little Backup Box. Get your copy at [Google Play Store](https://play.google.com/store/books/details/Dmitri_Popov_Linux_Photography?id=cO70CwAAQBAJ) or [Gumroad](https://gumroad.com/l/linux-photography).
-
-<img src="https://scribblesandsnaps.files.wordpress.com/2016/07/linux-photography-6.jpg" width="200"/>
-
-By buying the book, you are supporting the Linux Backup Box project.
