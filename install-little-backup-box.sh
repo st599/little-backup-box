@@ -48,6 +48,14 @@ echo -e '\nBAK_DIR="/home/'$USER'/BACKUP" # Home directory path' >> little-backu
 mkdir -p /home/$USER/BACKUP
 chown $USER:users -R /home/$USER/BACKUP
 
+#########################################################################################
+# ST: Install VCS script from outlyer
+wget https://p.outlyer.net/vcs/files/vcs-1.13.4.gz
+gunzip -c vcs-1.13.4.gz > little-backup-box/scripts/vcs-1.13.4.sh
+chmod a+x little-backup-box/scripts/vcs-1.13.4.sh
+sudo apt install -y ffmpeg imagemagick gawk
+#########################################################################################
+
 BACKTITLE="Little Backup Box"
 
 OPTIONS=(1 "Remote control"
